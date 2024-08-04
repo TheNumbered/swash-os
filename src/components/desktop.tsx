@@ -41,11 +41,11 @@ const IconLabel = styled('div')({
 });
 
 const icons = [
-  { icon: <FolderIcon fontSize="large" />, label: 'Folder' },
-  { icon: <ImageIcon fontSize="large" />, label: 'Images' },
-  { icon: <MusicNoteIcon fontSize="large" />, label: 'Music' },
-  { icon: <CodeIcon fontSize="large" />, label: 'Code' },
-  { icon: <VideoLibraryIcon fontSize="large" />, label: 'Videos' },
+  { icon: <FolderIcon fontSize="large" />, label: 'Folder', ariaLabel: 'Folder Icon' },
+  { icon: <ImageIcon fontSize="large" />, label: 'Images', ariaLabel: 'Images Icon' },
+  { icon: <MusicNoteIcon fontSize="large" />, label: 'Music', ariaLabel: 'Music Icon' },
+  { icon: <CodeIcon fontSize="large" />, label: 'Code', ariaLabel: 'Code Icon' },
+  { icon: <VideoLibraryIcon fontSize="large" />, label: 'Videos', ariaLabel: 'Videos Icon' },
   // Add more icons as needed
 ];
 
@@ -53,7 +53,7 @@ const Desktop: React.FC = () => {
   return (
     <DesktopContainer>
       {icons.map((item, index) => (
-        <DesktopIcon key={index}>
+        <DesktopIcon key={index} aria-label={item.ariaLabel}>
           {item.icon}
           <IconLabel>{item.label}</IconLabel>
         </DesktopIcon>

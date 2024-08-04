@@ -2,19 +2,17 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button, IconButton, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import React, { useState } from 'react';
-import Draggable from 'react-draggable';
+import { Rnd } from 'react-rnd';
 
 const WindowContainer = styled(Box)(({ theme }) => ({
-  position: 'fixed',
-  width: '98%',
-  height: '98%',
+  width: '100%',
+  height: '100%',
   border: `1px solid ${theme.palette.divider}`,
   borderRadius: '12px',
   overflow: 'hidden',
   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
   backgroundColor: theme.palette.background.paper,
   zIndex: 1300, // High z-index to ensure it's on top
-  //transform: 'translate(-50%, -50%)', // Center the window
 }));
 
 const WindowHeader = styled(Box)(({ theme }) => ({
@@ -35,13 +33,33 @@ const WindowContent = styled('iframe')({
 
 const Window: React.FC<{ url: string; onClose: () => void }> = ({ url, onClose }) => {
   const [iframeError, setIframeError] = useState(false);
+  const [size, setSize] = useState({ width: 800, height: 600 });
+  const [position, setPosition] = useState({ x: 100, y: 100 });
 
   const handleIframeError = () => {
     setIframeError(true);
   };
 
   return (
-     <Draggable handle=".window-header">
+    <Rnd
+      bounds="window"
+      size={size}
+      position={position}
+      onDragStop={(e, d) => setPosition({ x: d.x, y: d.y })}
+      onResizeStop={(e, direction, ref, delta, position) => {
+        
+        setSize({
+          // @ts-ignore
+          width: ref.style.width,
+          // @ts-ignore
+          height: ref.style.height,
+        });
+        setPosition(position);
+      }}
+      minWidth={300}
+      minHeight={200}
+      dragHandleClassName="window-header"
+    >
       <WindowContainer>
         <WindowHeader className="window-header">
           <Box>Window Title</Box>
@@ -57,10 +75,10 @@ const Window: React.FC<{ url: string; onClose: () => void }> = ({ url, onClose }
             </Button>
           </Box>
         ) : (
-          <WindowContent src={url}  onError={handleIframeError} />
+          <WindowContent src={url} onError={handleIframeError} />
         )}
       </WindowContainer>
-    </Draggable>
+    </Rnd>
   );
 };
 

@@ -10,13 +10,14 @@ const DockContainer = styled(Paper)<{ expanded: boolean }>(({ theme, expanded })
   position: 'fixed',
   bottom: '20px',
   left: '50%',
-  backgroundColor: theme.palette.background.default + '90',
+  backgroundColor: `${theme.palette.background.default}90`,
   borderRadius: '20px',
   padding: expanded ? '10px 40px' : '10px 20px', // Adjust padding based on expanded state
+  display: 'flex',
   alignItems: 'center',
   boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)',
   transition: 'padding 0.3s, transform 0.3s',
-  transform: 'translateX(-50%)'
+  transform: 'translateX(-50%)',
 }));
 
 const DockItem = styled(IconButton)({
@@ -43,7 +44,6 @@ const DockTaskbar: React.FC = () => {
 
   return (
     <DockContainer
-      theme={theme}
       expanded={expanded}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
