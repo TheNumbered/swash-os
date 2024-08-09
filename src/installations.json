@@ -1,0 +1,45 @@
+{
+    
+    "crop-web" : {
+        "name": "crop-web",
+        "url": "https://green-island-065feb50f.5.azurestaticapps.net",
+        "logo": "/logos/crop-web.png",
+        "arialabel": "Crop Web",
+        "techstack": ["React Typescript", "Node Js", "Express", "MySQL", "Azure"],
+        "description": "Crop Web is a web application that helps farmers to manage their crops and get information about the crops they are planting. It also helps them to get information about the weather and the best time to plant their crops."
+    },
+    "grant-ease" : {
+        "name": "grant-ease",
+        "url": "https://wonderful-ground-0a81f360f.5.azurestaticapps.net",
+        "logo": "/logos/grant-ease.png",
+        "arialabel": "Grant Ease",
+        "techstack": ["React Javascript", "Node Js", "Express", "MySQL", "Azure"],
+        "description": "Grant Ease is a web application that streamlines the grant application process for non-profit organizations. It helps organizations to easily apply for grants and get funding for their projects."
+    },
+    "rental-app": {
+        "name": "rental-app",
+        "url": "https://rental-expenses.vercel.app",
+        "logo": "/logos/rental-app.png",
+        "arialabel": "Rental App",
+        "techstack": ["React Javascript", "Node Js", "Express", "Postgres", "Vercel"],
+        "description": "Rental App is a web application that helps landlords to manage their rental properties. It helps them to keep track of their rental income and expenses, and generate reports for tax purposes."
+    },
+    "covid-aware": {
+        "name": "covid-aware",
+        "url": "https://github.com/TheNumbered/covid-aware",
+        "logo": "/logos/covid-aware.png",
+        "arialabel": "Covid Aware",
+        "techstack": ["Android Studio", "Java", "PHP", "MySQL"],
+        "description": "Covid Aware is an Android application that helps users to stay informed about the latest Covid-19 updates. It provides real-time data on the number of cases, deaths, and recoveries in different countries."
+
+    },
+    "mtm-church": {
+        "name": "mtm-church",
+        "url": "https://mtmchurch.org",
+        "logo": "/logos/mtm-church.png",
+        "arialabel": "MTM Church",
+        "techstack": ["Wordpress", "PHP", "MySQL"],
+        "description": "MTM Church is a website for a church that provides information about the church's services, events, and activities. It also allows members to make donations and access resources such as sermons and bible studies."
+    }
+    
+}

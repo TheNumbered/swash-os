@@ -3,7 +3,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { IconButton, Paper } from '@mui/material';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import React, { useState } from 'react';
 
 const DockContainer = styled(Paper)<{ expanded: boolean }>(({ theme, expanded }) => ({
@@ -36,7 +36,6 @@ const iconMap = [
 ];
 
 const DockTaskbar: React.FC = () => {
-  const theme = useTheme();
   const [expanded, setExpanded] = useState(false);
 
   const handleMouseEnter = () => setExpanded(true);

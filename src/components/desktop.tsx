@@ -1,12 +1,9 @@
-import CodeIcon from '@mui/icons-material/Code';
-import FolderIcon from '@mui/icons-material/Folder';
-import ImageIcon from '@mui/icons-material/Image';
-import MusicNoteIcon from '@mui/icons-material/MusicNote';
-import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import { IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import background from '../assets/background2.jpg';
+import installationData from '../installations.json';
+import { WindowAppDesc } from './window';
 
 const DesktopContainer = styled('div')({
   width: '100vw',
@@ -15,11 +12,29 @@ const DesktopContainer = styled('div')({
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   display: 'flex',
-  flexDirection: 'column',
-  flexWrap: 'wrap', // Allow wrapping of icons
-  alignItems: 'flex-start',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
   padding: '20px',
   boxSizing: 'border-box',
+  overflow: 'hidden',
+});
+
+const FenceContainer = styled('div')({
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  borderRadius: '10px',
+  padding: '20px',
+  boxSizing: 'border-box',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+});
+
+const FenceTitle = styled('h3')({
+  color: 'white',
+  marginBottom: '10px',
+  width: '100%',
+  textAlign: 'left',
 });
 
 const DesktopIcon = styled(IconButton)({
@@ -30,34 +45,78 @@ const DesktopIcon = styled(IconButton)({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  marginBottom: '20px', // Space between icons
-  marginRight: '20px', // Space between icons horizontally
+  marginBottom: '20px',
 });
 
 const IconLabel = styled('div')({
   marginTop: '5px',
   color: 'white',
-  fontSize: '0.8rem', // Adjust font size
+  fontSize: '0.8rem',
 });
 
-const icons = [
-  { icon: <FolderIcon fontSize="large" />, label: 'Folder', ariaLabel: 'Folder Icon' },
-  { icon: <ImageIcon fontSize="large" />, label: 'Images', ariaLabel: 'Images Icon' },
-  { icon: <MusicNoteIcon fontSize="large" />, label: 'Music', ariaLabel: 'Music Icon' },
-  { icon: <CodeIcon fontSize="large" />, label: 'Code', ariaLabel: 'Code Icon' },
-  { icon: <VideoLibraryIcon fontSize="large" />, label: 'Videos', ariaLabel: 'Videos Icon' },
-  // Add more icons as needed
-];
+const CenterClock = styled('div')({
+  color: 'white',
+  fontSize: '6rem',
+  textAlign: 'center',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+});
+
+const DateLabel = styled('div')({
+  marginTop: '10px',
+  color: 'white',
+  fontSize: '1.5rem',
+});
 
 const Desktop: React.FC = () => {
+  const [time, setTime] = useState(new Date());
+  const [selectedApp, setSelectedApp] = useState<keyof typeof installationData | null>(null);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const formattedTime = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const formattedDate = time.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+  const handleIconClick = (appName: keyof typeof installationData) => {
+    setSelectedApp(appName);
+  };
+
+  const handleClose = () => {
+    setSelectedApp(null);
+  };
+
   return (
     <DesktopContainer>
-      {icons.map((item, index) => (
-        <DesktopIcon key={index} aria-label={item.ariaLabel}>
-          {item.icon}
-          <IconLabel>{item.label}</IconLabel>
-        </DesktopIcon>
-      ))}
+      <FenceContainer>
+        <FenceTitle>My Apps</FenceTitle>
+        {Object.values(installationData).map((app, index) => (
+          <DesktopIcon key={index} onClick={() => handleIconClick(app.name as keyof typeof installationData)}>
+            <img src={app.logo} alt={app.name} style={{ width: 50, height: 50 }} />
+            <IconLabel>{app.arialabel}</IconLabel>
+          </DesktopIcon>
+        ))}
+      </FenceContainer>
+      <CenterClock>
+        {formattedTime}
+        <DateLabel>{formattedDate}</DateLabel>
+      </CenterClock>
+      <FenceContainer>
+        <FenceTitle>My Documents</FenceTitle>
+        {/* Document icons can be added here in a similar fashion */}
+      </FenceContainer>
+      {selectedApp && (
+        <WindowAppDesc
+          name={selectedApp}
+          onClose={handleClose}
+        />
+      )}
     </DesktopContainer>
   );
 };
